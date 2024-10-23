@@ -27,7 +27,7 @@ ul {
     gap: 20px;
     font-weight: bold;
 }
-ul li:nth-child(2) {
+ul li:nth-child(1) {
     border-bottom: 2px solid #bbbf4e;
     padding-bottom: 5px;
 }
@@ -130,4 +130,19 @@ a.comprar {
     text-align: center;
     margin-top: 25px;
     font-size: 16px;
+}
+
+a.link-produtos{
+    display: block;
+    width: fit-content;
+    margin: auto;
+    background-color: #bbbf4e;
+    color: #ffff;
+    padding: 15px 25px;
+    font-weight:500;
+    /* width: calc(50% - 30px); */
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 100px;
+    font-size: 20px;
 }

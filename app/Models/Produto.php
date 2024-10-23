@@ -19,4 +19,9 @@ class Produto extends Model
     {
         return $this->hasMany(ProdutoImagem::class, 'PRODUTO_ID', 'PRODUTO_ID');
     }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'CATEGORIA_ID', 'CATEGORIA_ID');
+    }
 }
