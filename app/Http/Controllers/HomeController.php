@@ -21,6 +21,6 @@ class HomeController extends Controller
             })
             ->get();
 
-        return view('home.index', compact('produtosChocolate', 'produtosBolo'));
+        return view('pages.home', compact('produtosChocolate', 'produtosBolo'));
     }
 }

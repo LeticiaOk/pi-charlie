@@ -19,7 +19,7 @@ header {
     background-color: #ffff;
     padding: 20px;
 }
-img.logo-img{
+img.logo-img {
     width: 130px;
 }
 ul {
@@ -78,17 +78,17 @@ button > span.material-symbols-outlined {
     padding: 15px;
     border-radius: 10px;
 }
-main{
+main {
     max-width: 1260px;
     margin: auto;
 }
-h1{
+h1 {
     margin: 50px 0;
     border-bottom: 4px solid #bbbf4e;
     padding-bottom: 5px;
     width: fit-content;
 }
-section.produtos{
+section.produtos {
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -100,8 +100,10 @@ div.produto {
     border: 1px solid #414141;
     border-radius: 10px;
     padding: 20px;
+    display: flex;
+    flex-direction: column; /* Permite organizar os elementos verticalmente */
+    justify-content: space-between; /* Coloca o botão no final da div */
 }
-
 
 img.produto-imagem {
     width: 100%;
@@ -132,14 +134,14 @@ a.comprar {
     font-size: 16px;
 }
 
-a.link-produtos{
+a.link-produtos {
     display: block;
     width: fit-content;
     margin: auto;
     background-color: #bbbf4e;
     color: #ffff;
     padding: 15px 25px;
-    font-weight:500;
+    font-weight: 500;
     /* width: calc(50% - 30px); */
     border-radius: 5px;
     text-align: center;

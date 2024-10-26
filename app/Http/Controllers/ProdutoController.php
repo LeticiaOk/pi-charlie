@@ -11,6 +11,6 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::with('imagens')->get();
 
-        return view('produtos.index', compact('produtos'));
+        return view('pages.shop', compact('produtos'));
     }
 }

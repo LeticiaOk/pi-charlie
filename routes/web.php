@@ -5,9 +5,13 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('inicio.index');
+// });
+
+// Route::get('/inicio', function () {
+//     return view('inicio.index');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,6 +24,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+
 
 require __DIR__.'/auth.php';
