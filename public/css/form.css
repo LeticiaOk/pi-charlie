@@ -13,7 +13,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; 
+    background-attachment: fixed;
 
 }
 main{
@@ -27,7 +27,7 @@ main{
     justify-content: center;
     /* gap: 15px; */
 }
-p{
+p.nome-loja{
     font-size: 24px;
     font-weight: bold;
 }
@@ -36,7 +36,7 @@ h1{
 }
 
 img.login-img{
-    width: 370px;
+    width: 320px;
     margin: 20px 0;
 }
 form{
@@ -61,7 +61,10 @@ input{
 input:focus{
     outline: none;
 }
-
+p.error{
+    color: red;
+    margin: 15px;
+}
 button{
     width: fit-content;
     margin: 15px auto;
@@ -75,3 +78,13 @@ button{
     cursor: pointer;
 }
 
+p.form-msg
+{
+    text-align: center;
+    margin-top: 10px;
+}
+
+a.form-link{
+    text-decoration: underline;
+    font-weight: bold;
+}

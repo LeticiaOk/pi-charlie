@@ -17,7 +17,7 @@ class HomeController extends Controller
 
         $produtosBolo = Produto::with(['imagens', 'categoria'])
             ->whereHas('categoria', function($query){
-                $query->where('CATEGORIA_NOME', 'Bolo');
+                $query->where('CATEGORIA_NOME', 'Bolo (Variados)');
             })
             ->get();
 

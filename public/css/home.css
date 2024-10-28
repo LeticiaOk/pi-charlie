@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-* {
+*, a, ul, p{
     margin: 0;
     padding: 0;
     font-family: "Inter", sans-serif;
@@ -7,7 +7,9 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
+    line-height: normal;
 }
+
 body {
     background-color: #f3f4f6;
 }
@@ -34,10 +36,28 @@ ul li:nth-child(1) {
 div.icons {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
+
 span.material-symbols-outlined {
-    font-size: 30px;
+    font-size: 25px;
+    color: #ffff;
+    font-weight: 400;
+    display: inherit;
 }
+
+span.cart{
+    color: #414141;
+}
+
+button.btn{
+    background-color: #414141;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+
 section.banner {
     width: 100%;
     height: 70vh;
@@ -72,7 +92,7 @@ button {
     cursor: pointer;
 }
 
-button > span.material-symbols-outlined {
+button.botao-lupa > span.material-symbols-outlined {
     background-color: #bbbf4e;
     color: #ffff;
     padding: 15px;
@@ -87,27 +107,36 @@ h1 {
     border-bottom: 4px solid #bbbf4e;
     padding-bottom: 5px;
     width: fit-content;
+    font-weight: bold;
 }
 section.produtos {
     display: flex;
-    justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
 }
 div.produto {
-    width: calc(25% - 30px);
+    width: 280px;
+    flex-wrap: wrap;
     background-color: #ffff;
     border: 1px solid #414141;
     border-radius: 10px;
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Permite organizar os elementos verticalmente */
-    justify-content: space-between; /* Coloca o botão no final da div */
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+div.imagem-conteiner{
+    border-radius: 10px;
+    width: 100%;
+    height: 170px;
+}
 img.produto-imagem {
     width: 100%;
-    border-radius: 10px;
+    height: 100%;
+    object-fit: contain;
+    /* border-radius: 15px; */
+
 }
 
 p.produto-nome {
@@ -130,8 +159,9 @@ a.comprar {
     /* width: calc(50% - 30px); */
     border-radius: 5px;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 15px;
     font-size: 16px;
+
 }
 
 a.link-produtos {
@@ -145,6 +175,6 @@ a.link-produtos {
     /* width: calc(50% - 30px); */
     border-radius: 5px;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 80px;
     font-size: 20px;
 }

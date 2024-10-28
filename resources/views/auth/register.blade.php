@@ -29,6 +29,11 @@
                     autocomplete="username">
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
+            <div class="grupo-form">
+                <label for="cpf" value="__('CPF')">CPF:</label>
+                <input type="text" name="cpf" id="cpf" :value="old('cpf')" required autocomplete="cpf">
+                <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
+            </div>
 
             <div class="grupo-form">
                 <label for="password" value="__('Password')">Senha:</label>
@@ -43,7 +48,9 @@
             </div>
             <button type="submit">Cadastrar</button>
         </form>
+        <p class="form-msg">Já tem uma conta? <a class="form-link" href="{{ route('login') }}">Faça Login</a></p>
     </main>
+
 </body>
 
 </html>

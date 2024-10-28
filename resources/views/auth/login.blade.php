@@ -11,7 +11,7 @@
 
 <body class="login">
     <main>
-        <p>Charlie Doces</p>
+        <p class="nome-loja">Charlie Doces</p>
         <h1>Iniciar sessão</h1>
         <img src="{{ asset('images/Login-bro.png') }}" alt="" width="370" class="login-img">
         <form method="POST" action="{{ route('login') }}">
@@ -33,7 +33,9 @@
                 @enderror
             </div>
             <button type="submit">Login</button>
+
         </form>
+        <p class="form-msg">Não tem uma conta? <a class="form-link" href="{{ route('register') }}">Cadastre-se</a></p>
     </main>
 </body>
 
