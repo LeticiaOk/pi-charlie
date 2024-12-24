@@ -1,0 +1,150 @@
+main {
+    max-width: 1260px;
+    margin: 0 auto;
+}
+/* .form-login,
+.form-register{
+    width: 600px;
+    margin: 100px auto 0 auto;
+}
+.form-login-container{
+
+} */
+img.carousel-img {
+    height: 70vh;
+    object-fit: cover;
+    filter: brightness(50%);
+}
+
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    margin: 60px 0 0 0 ;
+
+}
+
+button.btn-buy {
+    display: block !important;
+    width: fit-content;
+    margin: auto;
+}
+
+.cont-btn{
+    margin: auto;
+    width: fit-content;
+}
+
+section.produtos{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+img.card-img-top-produtos{
+    width: 400px;
+    height: 270px;
+    object-fit: contain;
+
+}
+
+.card-produtos,
+.card-home{
+    width: fit-content;
+    margin-top: 20px;
+}
+form.filtro{
+    margin-top: 70px;
+}
+
+/* SHOW */
+.show-container{
+    width: fit-content;
+    padding: 50px 30px 0 30px;
+}
+.show-img-cont{
+    height: 50vh;
+    width: 30vw;
+}
+.show-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-show{
+    margin: 100px auto 0 auto;
+    width: fit-content;
+}
+
+.form-show{
+    width: 300px;
+}
+
+/* CARRINHO */
+
+.carrinho-img{
+    border-radius: 10px;
+}
+
+
+.container-carrinho{
+    max-width: 70vw;
+    margin: 60px auto 0 auto;
+}
+
+.quantidade{
+    display: flex;
+    align-items: center;
+}
+
+.btn-quantidade{
+    padding:  0 10px;
+}
+
+.carrinho-card{
+    margin-top: 30px;
+    min-width: 70vw;
+}
+
+/* ENDERECO */
+
+form.form-entrega,
+form.form-status,
+form.form-pedido{
+    margin: 60px auto 0 auto;
+    width: 600px;
+}
+footer {
+    margin-top: 80px;
+    background-color: #F8F9FA;
+    display: flex;
+    justify-content: space-around;
+    padding: 70px;
+}
+
+/* PEDIDO*/
+.status-input{
+    margin-top: 30px;
+}
+
+/*HISTÓRIOCO*/
+
+.container-historico{
+    margin-top: 50px;
+}
+footer p {
+    width: 400px;
+}
+/* .carousel-control-prev {
+    left: -10%;
+}
+
+.carousel-control-next {
+    right: -10%;
+}
+.carousel-control-prev-icon-product,
+.carousel-control-next-icon-product{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+} */

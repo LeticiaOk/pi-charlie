@@ -52,7 +52,9 @@
                                     </button>
                                 </form>
                             </li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="{{ route('historico.pedidos') }}">Histórico</a></li>
                         </ul>
                     </li>
@@ -66,56 +68,38 @@
         </div>
     </nav>
     <main>
-        <form method="GET" action="{{ route('produtos') }}" class="filtro">
-            <div class="dropdown">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categoria
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('produtos') }}">Todos</a></li>
-                    @foreach ($categorias as $categoria)
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{{ route('produtos', ['categoria_id' => $categoria->CATEGORIA_ID]) }}">
-                                {{ $categoria->CATEGORIA_NOME }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </form>
+        <div class="card mb-3 card-show">
+            <div class="row g-0">
+                <div class="col-md-4 show-img-cont">
+                    @if ($produto->imagens->isNotEmpty())
+                        <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" alt="{{ $produto->PRODUTO_NOME }}"
+                            class="img-fluid rounded-start show-img">
+                    @else
+                        <p>Imagem não disponível</p>
+                    @endif
+                </div>
+                <div class="col-md-8 show-container">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ $produto->PRODUTO_NOME }}</h2>
+                        <h5>{{ $produto->PRODUTO_PRECO }}</h5>
+                        <p class="card-text">{{ $produto->PRODUTO_DESC }}.</p>
+                        {{-- <p class="card-text"><small class="text-body-secondary">Oferecido por Charlie Doces</small></p> --}}
+                        <form action="{{ route('carrinho.adicionar', $produto->PRODUTO_ID) }}" method="POST"
+                            class="form-show">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <input type="number" name="quantidade" min="1" value="1"
+                                    max="{{ $produto->estoque->PRODUTO_QTD }}" class="form-control"
+                                    placeholder="Quantidade">
+                                <button type="submit" class="btn btn-dark">Adicionar ao Carrinho</button>
+                            </div>
+                        </form>
+                        <small class="text-muted">Estoque disponível: {{ $produto->estoque->PRODUTO_QTD }}</small>
 
-        <section class="produtos">
-            @foreach ($produtos as $produto)
-                <div class="col-md-4">
-                    <div class="card card-produtos">
-                        @if ($produto->imagens->isEmpty() || !$produto->imagens->first()->IMAGEM_URL)
-                    <div class="card-img-top card-img-top-produtos" style="height: 200px; display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;">
-                        <span>Imagem não disponível</span>
-                    </div>
-                @else
-                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-top-produtos" alt="{{ $produto->PRODUTO_NOME }}">
-                @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-                            <p class="card-text">R$ {{ number_format($produto->PRODUTO_PRECO, 2, ',', '.') }}</p>
-
-                             @if ($produto->estoque && $produto->estoque->PRODUTO_QTD > 0)
-                    <a href="{{ route('show', $produto->PRODUTO_ID) }}" class="btn btn-dark">Comprar</a>
-                @else
-                    <button class="btn btn-secondary" disabled>Sem Estoque</button>
-                @endif
-                        </div>
                     </div>
                 </div>
-            @endforeach
-        </section>
+            </div>
+        </div>
     </main>
     <footer>
         <div>
@@ -131,6 +115,7 @@
             <p>Nosso sistema de pagamento online é operado por uma empresa especializada em segurança de pagamento online. Para mais informações, por favor vá para a seção “Pagamento” dentro dos nossos Termos e Condições.​</p>
         </div>
     </footer>
+
 </body>
 
 </html>

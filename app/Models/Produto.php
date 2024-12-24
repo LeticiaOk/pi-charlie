@@ -24,4 +24,9 @@ class Produto extends Model
     {
         return $this->belongsTo(Categoria::class, 'CATEGORIA_ID', 'CATEGORIA_ID');
     }
+
+    public function estoque()
+    {
+        return $this->hasOne(ProdutoEstoque::class, 'PRODUTO_ID', 'PRODUTO_ID');
+    }
 }

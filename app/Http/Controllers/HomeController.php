@@ -9,9 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $produtosChocolate = Produto::with(['imagens', 'categoria'])
+        $produtosTorta= Produto::with(['imagens', 'categoria'])
             ->whereHas('categoria', function($query){
-                $query->where('CATEGORIA_NOME', 'Chocolate');
+                $query->where('CATEGORIA_NOME', 'Torta');
             })
             ->get();
 
@@ -21,6 +21,6 @@ class HomeController extends Controller
             })
             ->get();
 
-        return view('pages.home', compact('produtosChocolate', 'produtosBolo'));
+        return view('pages.home', compact('produtosTorta', 'produtosBolo'));
     }
 }

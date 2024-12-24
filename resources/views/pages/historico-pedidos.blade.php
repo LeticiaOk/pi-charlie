@@ -15,7 +15,6 @@
 
     <title>Charlie</title>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -66,56 +65,44 @@
         </div>
     </nav>
     <main>
-        <form method="GET" action="{{ route('produtos') }}" class="filtro">
-            <div class="dropdown">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categoria
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('produtos') }}">Todos</a></li>
-                    @foreach ($categorias as $categoria)
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{{ route('produtos', ['categoria_id' => $categoria->CATEGORIA_ID]) }}">
-                                {{ $categoria->CATEGORIA_NOME }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </form>
+        <h1>Histórico de Pedidos</h1>
+        <div class="container container-historico">
 
-        <section class="produtos">
-            @foreach ($produtos as $produto)
-                <div class="col-md-4">
-                    <div class="card card-produtos">
-                        @if ($produto->imagens->isEmpty() || !$produto->imagens->first()->IMAGEM_URL)
-                    <div class="card-img-top card-img-top-produtos" style="height: 200px; display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;">
-                        <span>Imagem não disponível</span>
-                    </div>
-                @else
-                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-top-produtos" alt="{{ $produto->PRODUTO_NOME }}">
-                @endif
+            @if($historico->isEmpty())
+                <p>Você ainda não fez nenhum pedido.</p>
+            @else
+                @foreach($historico as $pedidoId => $itens)
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5>Pedido ID: {{ $pedidoId }}</h5>
+                            <p>Data do Pedido: {{ $itens->first()->PEDIDO_DATA }}</p>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-                            <p class="card-text">R$ {{ number_format($produto->PRODUTO_PRECO, 2, ',', '.') }}</p>
-
-                             @if ($produto->estoque && $produto->estoque->PRODUTO_QTD > 0)
-                    <a href="{{ route('show', $produto->PRODUTO_ID) }}" class="btn btn-dark">Comprar</a>
-                @else
-                    <button class="btn btn-secondary" disabled>Sem Estoque</button>
-                @endif
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Quantidade</th>
+                                        <th>Preço Unitário</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($itens as $item)
+                                        <tr>
+                                            <td>{{ $item->PRODUTO_NOME }}</td>
+                                            <td>{{ $item->ITEM_QTD }}</td>
+                                            <td>R$ {{ number_format($item->ITEM_PRECO, 2, ',', '.') }}</td>
+                                            <td>R$ {{ number_format($item->ITEM_QTD * $item->ITEM_PRECO, 2, ',', '.') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </section>
+                @endforeach
+            @endif
+        </div>
     </main>
     <footer>
         <div>
@@ -132,5 +119,4 @@
         </div>
     </footer>
 </body>
-
 </html>

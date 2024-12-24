@@ -15,7 +15,6 @@
 
     <title>Charlie</title>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -66,56 +65,17 @@
         </div>
     </nav>
     <main>
-        <form method="GET" action="{{ route('produtos') }}" class="filtro">
-            <div class="dropdown">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categoria
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('produtos') }}">Todos</a></li>
-                    @foreach ($categorias as $categoria)
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{{ route('produtos', ['categoria_id' => $categoria->CATEGORIA_ID]) }}">
-                                {{ $categoria->CATEGORIA_NOME }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </form>
-
-        <section class="produtos">
-            @foreach ($produtos as $produto)
-                <div class="col-md-4">
-                    <div class="card card-produtos">
-                        @if ($produto->imagens->isEmpty() || !$produto->imagens->first()->IMAGEM_URL)
-                    <div class="card-img-top card-img-top-produtos" style="height: 200px; display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;">
-                        <span>Imagem não disponível</span>
-                    </div>
-                @else
-                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-top-produtos" alt="{{ $produto->PRODUTO_NOME }}">
-                @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-                            <p class="card-text">R$ {{ number_format($produto->PRODUTO_PRECO, 2, ',', '.') }}</p>
-
-                             @if ($produto->estoque && $produto->estoque->PRODUTO_QTD > 0)
-                    <a href="{{ route('show', $produto->PRODUTO_ID) }}" class="btn btn-dark">Comprar</a>
-                @else
-                    <button class="btn btn-secondary" disabled>Sem Estoque</button>
-                @endif
-                        </div>
-                    </div>
+        <div class="container">
+            <h1>Cadastrar Status do Pedido</h1>
+            <form action="{{ route('pedidostatus.salvarStatus') }}" method="POST" class="form-status">
+                @csrf
+                <div class="mb-3">
+                    <label for="STATUS_DESC" class="form-label">Descrição do Status</label>
+                    <input type="text" name="STATUS_DESC" id="STATUS_DESC" class="form-control" required>
                 </div>
-            @endforeach
-        </section>
+                <button type="submit" class="btn btn-dark">Salvar e continuar</button>
+            </form>
+        </div>
     </main>
     <footer>
         <div>
@@ -132,5 +92,4 @@
         </div>
     </footer>
 </body>
-
 </html>

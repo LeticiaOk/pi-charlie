@@ -15,7 +15,6 @@
 
     <title>Charlie</title>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -66,56 +65,34 @@
         </div>
     </nav>
     <main>
-        <form method="GET" action="{{ route('produtos') }}" class="filtro">
-            <div class="dropdown">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categoria
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('produtos') }}">Todos</a></li>
-                    @foreach ($categorias as $categoria)
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{{ route('produtos', ['categoria_id' => $categoria->CATEGORIA_ID]) }}">
-                                {{ $categoria->CATEGORIA_NOME }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </form>
+        <div class="container">
+            <h1>Realizar Pedido</h1>
 
-        <section class="produtos">
-            @foreach ($produtos as $produto)
-                <div class="col-md-4">
-                    <div class="card card-produtos">
-                        @if ($produto->imagens->isEmpty() || !$produto->imagens->first()->IMAGEM_URL)
-                    <div class="card-img-top card-img-top-produtos" style="height: 200px; display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;">
-                        <span>Imagem não disponível</span>
-                    </div>
-                @else
-                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-top-produtos" alt="{{ $produto->PRODUTO_NOME }}">
-                @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-                            <p class="card-text">R$ {{ number_format($produto->PRODUTO_PRECO, 2, ',', '.') }}</p>
-
-                             @if ($produto->estoque && $produto->estoque->PRODUTO_QTD > 0)
-                    <a href="{{ route('show', $produto->PRODUTO_ID) }}" class="btn btn-dark">Comprar</a>
-                @else
-                    <button class="btn btn-secondary" disabled>Sem Estoque</button>
-                @endif
-                        </div>
-                    </div>
+            <form action="{{ route('pedido.salvar') }}" method="POST" class="form-pedido">
+                @csrf
+                <div class="mb-3">
+                    <label for="ENDERECO_ID" class="form-label">Endereço</label>
+                    <select name="ENDERECO_ID" id="ENDERECO_ID" class="form-control" required>
+                        <option value="">Selecione um endereço</option>
+                        @foreach ($enderecos as $endereco)
+                            <option value="{{ $endereco->ENDERECO_ID }}">{{ $endereco->ENDERECO_LOGRADOURO }}, {{ $endereco->ENDERECO_NUMERO }}</option>
+                        @endforeach
+                    </select>
                 </div>
-            @endforeach
-        </section>
+                <a href="{{ route('endereco.form') }}" class="btn btn-primary">Adicionar endereço</a>
+                <div class="mb-3 status-input">
+                    <label for="STATUS_ID" class="form-label">Status do Pedido</label>
+                    <select name="STATUS_ID" id="STATUS_ID" class="form-control" required>
+                        <option value="">Selecione um status</option>
+                        @foreach ($statusList as $status)
+                            <option value="{{ $status->STATUS_ID }}">{{ $status->STATUS_DESC }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-dark">Concluir</button>
+            </form>
+        </div>
     </main>
     <footer>
         <div>
@@ -132,5 +109,4 @@
         </div>
     </footer>
 </body>
-
 </html>

@@ -66,56 +66,62 @@
         </div>
     </nav>
     <main>
-        <form method="GET" action="{{ route('produtos') }}" class="filtro">
-            <div class="dropdown">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categoria
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('produtos') }}">Todos</a></li>
-                    @foreach ($categorias as $categoria)
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{{ route('produtos', ['categoria_id' => $categoria->CATEGORIA_ID]) }}">
-                                {{ $categoria->CATEGORIA_NOME }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </form>
 
-        <section class="produtos">
-            @foreach ($produtos as $produto)
-                <div class="col-md-4">
-                    <div class="card card-produtos">
-                        @if ($produto->imagens->isEmpty() || !$produto->imagens->first()->IMAGEM_URL)
-                    <div class="card-img-top card-img-top-produtos" style="height: 200px; display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;">
-                        <span>Imagem não disponível</span>
-                    </div>
-                @else
-                    <img src="{{ $produto->imagens->first()->IMAGEM_URL }}" class="card-img-top card-img-top-produtos" alt="{{ $produto->PRODUTO_NOME }}">
-                @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $produto->PRODUTO_NOME }}</h5>
-                            <p class="card-text">R$ {{ number_format($produto->PRODUTO_PRECO, 2, ',', '.') }}</p>
+        <h1>Carrinho de Compras</h1>
+        <div class="container-carrinho">
 
-                             @if ($produto->estoque && $produto->estoque->PRODUTO_QTD > 0)
-                    <a href="{{ route('show', $produto->PRODUTO_ID) }}" class="btn btn-dark">Comprar</a>
-                @else
-                    <button class="btn btn-secondary" disabled>Sem Estoque</button>
-                @endif
-                        </div>
-                    </div>
+            @if ($itensCarrinho->isEmpty())
+                <p>Seu carrinho está vazio.</p>
+            @else
+                <table class="table">
+                    <tbody>
+                        @foreach ($itensCarrinho as $item)
+                            <tr>
+                                <td class="cedula">
+                                    @if ($item->produto->imagens->isNotEmpty())
+                                        <img src="{{ $item->produto->imagens->first()->IMAGEM_URL }}"
+                                            alt="{{ $item->produto->PRODUTO_NOME }}" style="width: 80px; height: auto;"
+                                            class="carrinho-img">
+                                    @else
+                                        <p>Sem imagem</p>
+                                    @endif
+                                </td>
+                                <td> <strong>{{ $item->produto->PRODUTO_NOME }}</strong></td>
+                                <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
+                                <td>
+                                    <div class="input-group quantidade">
+                                        <form action="{{ route('carrinho.diminuir', $item->PRODUTO_ID) }}"
+                                            method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-secondary btn-quantidade">-</button>
+                                        </form>
+                                        <span class="mx-2">{{ $item->ITEM_QTD }}</span>
+                                        <form action="{{ route('carrinho.aumentar', $item->PRODUTO_ID) }}"
+                                            method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-secondary btn-quantidade">+</button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>R$
+                                    {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+            <div class="card text-bg-light mb-3 carrinho-card" style="max-width: 18rem;">
+                <div class="card-header"><strong>Resumo da compra</strong></div>
+                <div class="card-body">
+                    <p class="card-text">Produtos: {{ $itensCarrinho->sum('ITEM_QTD') }}</p>
+                    <h5><strong>Total: R$
+                            {{ number_format($itensCarrinho->sum(fn($item) => $item->produto->PRODUTO_PRECO * $item->ITEM_QTD), 2, ',', '.') }}</strong>
+                    </h5>
                 </div>
-            @endforeach
-        </section>
+            </div>
+            <a href="{{ route('pedido.form') }}" class="btn btn-dark mt-3">Continuar a compra</a>
+        </div>
     </main>
     <footer>
         <div>
